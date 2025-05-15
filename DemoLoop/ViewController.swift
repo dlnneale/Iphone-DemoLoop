@@ -8,8 +8,14 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        // Observe app becoming active
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(appDidBecomeActive),
+                                               name: UIApplication.didBecomeActiveNotification,
+                                               object: nil)
     }
-    
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
@@ -19,10 +25,9 @@ class ViewController: UIViewController {
         }
         
         let url = URL(fileURLWithPath: path)
-        let asset = AVURLAsset(url: url)
+        let asset = AVAsset(url: url)
         let item = AVPlayerItem(asset: asset)
 
-        // Setup looping player
         queuePlayer = AVQueuePlayer()
         playerLooper = AVPlayerLooper(player: queuePlayer!, templateItem: item)
 
@@ -33,4 +38,13 @@ class ViewController: UIViewController {
 
         queuePlayer?.play()
     }
+
+    @objc func appDidBecomeActive() {
+        queuePlayer?.play()
+    }
+
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
 }
+
