@@ -4,7 +4,7 @@ An Xcode project that replicates the demo loop app on retail iPhones
 
 # How To Download:
 
-click the green button that says: code<>
+click the green button that says: <> code
 
 click download zip
 
